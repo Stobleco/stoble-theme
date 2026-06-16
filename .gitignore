@@ -14,3 +14,6 @@ node_modules
 .shopify/
 .env
 *.env
+
+# local foundation preview (not part of the theme)
+.preview-foundation.html

@@ -1465,5 +1465,21 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "stoble",
+    "settings": [
+      {
+        "type": "header",
+        "content": "brand voice"
+      },
+      {
+        "type": "checkbox",
+        "id": "force_lowercase",
+        "label": "force lowercase styling",
+        "info": "Renders headings, body, and furniture in lowercase site-wide (the stoble convention) while editors type naturally. Eyebrows stay uppercase; add the 'allow-caps' class to opt a specific element out.",
+        "default": true
+      }
+    ]
   }
 ]
