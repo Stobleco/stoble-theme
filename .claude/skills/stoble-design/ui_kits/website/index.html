@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Website" name="Website / Homepage" subtitle="Full e-commerce home with working cart" viewport="1280x900" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>stoble — good coffee, honestly told.</title>
+<link rel="stylesheet" href="site.css" />
+</head>
+<body data-screen-label="01 Stoble Website Home">
+
+<div id="app"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState } = React;
+
+// ───────────── Primitives.jsx ─────────────
+// Stoble — shared UI building blocks for the website kit.
+// Lowercase across the board; serif for headings, sans for furniture.
+
+
+// ─────────────────────────────────────────────────────────────
+// Wordmark — uses the real PNG. Pass tone="navy" | "white" | "lightgray".
+// ─────────────────────────────────────────────────────────────
+function Wordmark({ tone = "navy", height = 32 }) {
+  const src = `../../assets/wordmark-${tone}.png`;
+  return <img src={src} alt="stoble" style={{ height, display: "block" }} />;
+}
+
+function Symbol({ tone = "navy", size = 28 }) {
+  const src = `../../assets/symbol-s-${tone}.png`;
+  return <img src={src} alt="" style={{ height: size, width: "auto", display: "block" }} />;
+}
+
+// ─────────────────────────────────────────────────────────────
+// Button — pill, three styles.
+// ─────────────────────────────────────────────────────────────
+function Button({ variant = "primary", size = "md", children, arrow = false, onClick, type = "button" }) {
+  const cls = `sto-btn sto-btn-${variant} sto-btn-${size}`;
+  return (
+    <button className={cls} onClick={onClick} type={type}>
+      <span>{children}</span>
+      {arrow && <span className="sto-btn-arrow">→</span>}
+    </button>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Eyebrow — uppercase Garnett label above section heads.
+// ─────────────────────────────────────────────────────────────
+function Eyebrow({ children, color }) {
+  return <div className="sto-eyebrow" style={color ? { color } : undefined}>{children}</div>;
+}
+
+// ─────────────────────────────────────────────────────────────
+// Tagline image — Better Together lockups.
+// ─────────────────────────────────────────────────────────────
+function BetterTogether({ variant = "wave", tone = "navy", height = 56 }) {
+  // Only wave is shipped in white. For other variants on dark surfaces,
+  // load the navy file and invert it via CSS — preserves visual variety.
+  const needsInvert = (tone === "white" && variant !== "wave");
+  const src = needsInvert
+    ? `../../assets/bt-${variant}-navy.png`
+    : `../../assets/bt-${variant}-${tone}.png`;
+  const style = { height, display: "block" };
+  if (needsInvert) style.filter = "brightness(0) invert(1)";
+  return <img src={src} alt="better together" style={style} />;
+}
+
+// ─────────────────────────────────────────────────────────────
+// CoffeeBag — a faux packaging label used as product imagery.
+// Color flood = roast color; centered cream label with text.
+// ─────────────────────────────────────────────────────────────
+function CoffeeBag({ roast, name, sub, size = "lg" }) {
+  const roastColors = {
+    flagship: { bg: "#8096A3", tint: "#C9D0D2" },
+    dark: { bg: "#556C72", tint: "#DDCBC3" },
+    decaf: { bg: "#8BA099", tint: "#C0C8CB" },
+    africa: { bg: "#B8A57A", tint: "#E4DED0" },
+    south: { bg: "#A56F5C", tint: "#F7F0ED" },
+    central: { bg: "#DEBBA8", tint: "#D5DCDA" },
+  };
+  const c = roastColors[roast] || roastColors.flagship;
+  const labelName = { flagship: "flagship", dark: "dark", decaf: "decaf", africa: "africa", south: "south america", central: "central america" }[roast];
+  return (
+    <div className={`sto-bag sto-bag-${size}`} style={{ background: c.bg }}>
+      <div className="sto-bag-strip" style={{ color: c.tint }}>
+        <span>stoble</span>
+        <span>12 oz / 340 g</span>
+      </div>
+      <div className="sto-bag-label">
+        <div className="sto-bag-roast" style={{ color: c.bg }}>{labelName}</div>
+        <div className="sto-bag-name">{name}</div>
+        <div className="sto-bag-sub">{sub}</div>
+        <div className="sto-bag-notes" style={{ color: c.bg, opacity: 0.7 }}>
+          <span>notes</span>
+          <span>↓</span>
+        </div>
+      </div>
+      <div className="sto-bag-foot" style={{ color: c.tint }}>better together.</div>
+    </div>
+  );
+}
+
+// ───────────── Header.jsx ─────────────
+// Header — sticky top nav for the website.
+
+function Header({ cartCount = 0, onCart, onLogin, onNav, current = "shop" }) {
+  const items = [
+    { id: "shop", label: "shop" },
+    { id: "subscriptions", label: "subscriptions" },
+    { id: "our-coffee", label: "our coffee" },
+    { id: "cafe", label: "cafe" },
+    { id: "journal", label: "journal" },
+  ];
+  return (
+    <header className="sto-header">
+      <div className="sto-header-inner">
+        <a className="sto-header-logo" href="#" onClick={(e) => { e.preventDefault(); onNav && onNav("home"); }}>
+          <Wordmark tone="navy" height={26} />
+        </a>
+        <nav className="sto-header-nav">
+          {items.map((it) => (
+            <a
+              key={it.id}
+              href="#"
+              className={`sto-header-link ${current === it.id ? "is-current" : ""}`}
+              onClick={(e) => { e.preventDefault(); onNav && onNav(it.id); }}
+            >
+              {it.label}
+            </a>
+          ))}
+        </nav>
+        <div className="sto-header-tools">
+          <button className="sto-icon-btn" aria-label="search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </button>
+          <button className="sto-icon-btn" aria-label="account" onClick={onLogin}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+          </button>
+          <button className="sto-icon-btn sto-cart-btn" aria-label="cart" onClick={onCart}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 5h3l2.5 11h11l2-8H7"/><circle cx="10" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+            {cartCount > 0 && <span className="sto-cart-count">{cartCount}</span>}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+// ───────────── Hero.jsx ─────────────
+// Hero — full-bleed navy with serif headline, BT tagline.
+function Hero({ onShop }) {
+  return (
+    <section className="sto-hero">
+      <div className="sto-hero-inner">
+        <div className="sto-hero-text">
+          <Eyebrow color="#B6C2C6">est. chico, california · 2019</Eyebrow>
+          <h1 className="sto-hero-head">
+            a good cup<br />
+            of coffee,<br />
+            shared <em>better</em>.
+          </h1>
+          <p className="sto-hero-sub">
+            we believe coffee should delight more than just your palate — it should bring people together. lovingly roasted in small batches, here in chico.
+          </p>
+          <div className="sto-hero-cta">
+            <Button variant="cream" size="lg" arrow onClick={onShop}>shop our coffee</Button>
+            <Button variant="ghost-light" size="lg" arrow>visit the cafe</Button>
+          </div>
+        </div>
+        <div className="sto-hero-art">
+          <CoffeeBag roast="flagship" name="our daily cup." sub="double-origin · washed" />
+          <div className="sto-hero-bt">
+            <BetterTogether variant="wave" tone="white" height={48} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ───────────── Roasts.jsx ─────────────
+// RoastsGrid — six product cards for each roast.
+const ROASTS = [
+  { id: "flagship", name: "flagship", price: 19, kind: "double-origin · washed", notes: "milk chocolate, dried cherry, brown sugar", desc: "our everyday cup. balanced, bright, the one we put in our own pour-overs." },
+  { id: "dark", name: "dark", price: 19, kind: "double-origin · washed", notes: "dark chocolate, toasted nut, molasses", desc: "for the deep-roast lovers — bold, but never bitter or burnt." },
+  { id: "decaf", name: "decaf", price: 20, kind: "double-origin · washed", notes: "caramel, baked apple, almond", desc: "all the flavor, none of the jitters. swiss-water processed." },
+  { id: "africa", name: "africa", price: 22, kind: "single-origin · natural", notes: "blueberry, jasmine, grapefruit zest", desc: "ethiopia guji — jammy, floral, wild like a sunny morning." },
+  { id: "south", name: "south america", price: 21, kind: "single-origin · washed", notes: "honey, pear, milk chocolate", desc: "colombia huila — smooth, clean, easy-drinking. monday-morning approved." },
+  { id: "central", name: "central america", price: 21, kind: "single-origin · washed", notes: "stone fruit, brown sugar, cocoa nib", desc: "guatemala antigua — soft body, sweet finish. a quiet showstopper." },
+];
+
+function RoastCard({ roast, onAdd }) {
+  const [hover, setHover] = useState(false);
+  return (
+    <article
+      className="sto-roast-card"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div className="sto-roast-art">
+        <CoffeeBag roast={roast.id} name={roast.name + "."} sub={roast.kind} size="sm" />
+      </div>
+      <div className="sto-roast-body">
+        <div className="sto-roast-head">
+          <h3 className="sto-roast-name">{roast.name}</h3>
+          <div className="sto-roast-price">${roast.price}</div>
+        </div>
+        <div className="sto-roast-kind">{roast.kind}</div>
+        <p className="sto-roast-desc">{roast.desc}</p>
+        <div className="sto-roast-notes">
+          <span className="sto-roast-notes-label">notes  ↓</span>
+          <span className="sto-roast-notes-text">{roast.notes}</span>
+        </div>
+        <Button variant="primary" size="sm" arrow onClick={() => onAdd(roast)}>
+          {hover ? "add to bag" : "add to bag"}
+        </Button>
+      </div>
+    </article>
+  );
+}
+
+function RoastsGrid({ onAdd }) {
+  return (
+    <section className="sto-section sto-roasts">
+      <div className="sto-section-head">
+        <Eyebrow>our coffee</Eyebrow>
+        <h2 className="sto-section-title">six roasts. one promise — <em>good coffee, honestly told.</em></h2>
+        <p className="sto-section-sub">we tell you exactly what's in the bag and who grew it. that's it.</p>
+      </div>
+      <div className="sto-roast-grid">
+        {ROASTS.map((r) => <RoastCard key={r.id} roast={r} onAdd={onAdd} />)}
+      </div>
+    </section>
+  );
+}
+
+// ───────────── Story.jsx ─────────────
+// Story — split section about the brand + values.
+function StoryBlock() {
+  return (
+    <section className="sto-section sto-story">
+      <div className="sto-story-grid">
+        <div className="sto-story-text">
+          <Eyebrow>our story</Eyebrow>
+          <h2 className="sto-story-head">
+            we’re a small roastery in chico, with a simple idea — coffee is better when it’s shared.
+          </h2>
+          <p className="sto-story-body">
+            we started stoble in 2019 because we couldn’t find a coffee shop in town that felt like home. so we made one. we roast every bag ourselves, we know the farmers we buy from by name, and we pay them what their coffee is actually worth.
+          </p>
+          <p className="sto-story-body">
+            you don’t have to be a coffee nerd to enjoy our coffee. you just have to be thirsty.
+          </p>
+          <div className="sto-story-cta">
+            <Button variant="primary" arrow>read our story</Button>
+            <Button variant="secondary" arrow>meet the team</Button>
+          </div>
+        </div>
+        <div className="sto-story-art">
+          <div className="sto-story-tile sto-story-tile-1">
+            <BetterTogether variant="boomerang" tone="white" height={120} />
+          </div>
+          <div className="sto-story-tile sto-story-tile-2">
+            <div className="sto-story-fact">
+              <div className="sto-fact-num">2019</div>
+              <div className="sto-fact-label">founded in chico, ca</div>
+            </div>
+            <div className="sto-story-fact">
+              <div className="sto-fact-num">14</div>
+              <div className="sto-fact-label">producer partners</div>
+            </div>
+            <div className="sto-story-fact">
+              <div className="sto-fact-num">$5.40</div>
+              <div className="sto-fact-label">avg. green price / lb<br/>(3x fairtrade min.)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ───────────── Subscribe.jsx ─────────────
+// Subscription band — encourage subscribe before footer.
+function SubscribeBand({ onSubscribe }) {
+  return (
+    <section className="sto-subband">
+      <div className="sto-subband-inner">
+        <div className="sto-subband-text">
+          <Eyebrow color="#B6C2C6">subscription</Eyebrow>
+          <h2 className="sto-subband-head">
+            fresh coffee, on your<br />
+            schedule — never on autopilot.
+          </h2>
+          <p className="sto-subband-sub">
+            tell us how much you drink and we'll keep you stocked. pause, skip, or change roasts any time, in two clicks.
+          </p>
+          <div className="sto-subband-cta">
+            <Button variant="cream" size="lg" arrow onClick={onSubscribe}>start a subscription</Button>
+            <span className="sto-subband-fine">free shipping over $30 · cancel any time</span>
+          </div>
+        </div>
+        <div className="sto-subband-art">
+          <BetterTogether variant="braid" tone="white" height={260} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Cafe — visit-us block.
+function CafeBlock() {
+  return (
+    <section className="sto-section sto-cafe">
+      <div className="sto-cafe-grid">
+        <div className="sto-cafe-card">
+          <div className="sto-cafe-img" />
+          <div className="sto-cafe-body">
+            <Eyebrow>downtown chico</Eyebrow>
+            <h3 className="sto-cafe-name">418 broadway</h3>
+            <div className="sto-cafe-hours">
+              <div><span>mon — fri</span><span>6:30a — 5p</span></div>
+              <div><span>sat — sun</span><span>7a — 5p</span></div>
+            </div>
+            <Button variant="secondary" size="sm" arrow>get directions</Button>
+          </div>
+        </div>
+        <div className="sto-cafe-card">
+          <div className="sto-cafe-img sto-cafe-img-2" />
+          <div className="sto-cafe-body">
+            <Eyebrow>workplace · coworking</Eyebrow>
+            <h3 className="sto-cafe-name">stoble workplace</h3>
+            <div className="sto-cafe-hours">
+              <div><span>mon — fri</span><span>7a — 7p</span></div>
+              <div><span>day pass</span><span>$22</span></div>
+            </div>
+            <Button variant="secondary" size="sm" arrow>book a desk</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ───────────── Footer.jsx ─────────────
+// Footer — site map + brand reinforcement.
+function Footer() {
+  const cols = [
+    { title: "shop", links: ["all coffee", "subscriptions", "merch", "gift cards", "wholesale"] },
+    { title: "visit", links: ["the cafe", "workplace", "events", "hosting & rentals"] },
+    { title: "about", links: ["our story", "sourcing", "the journal", "careers", "press"] },
+    { title: "help", links: ["shipping", "subscription faq", "returns", "contact us"] },
+  ];
+  return (
+    <footer className="sto-footer">
+      <div className="sto-footer-top">
+        <div className="sto-footer-brand">
+          <Wordmark tone="lightgray" height={36} />
+          <p className="sto-footer-addr">
+            418 broadway street<br />
+            chico, california 95928<br />
+            <a href="#">hello@stoblecoffee.com</a>
+          </p>
+          <div className="sto-footer-social">
+            <a href="#" aria-label="instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="tiktok"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M14 3v12.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 3 2.5 5 5 5"/></svg></a>
+            <a href="#" aria-label="spotify"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="9"/><path d="M7 10c4-1 8-1 11 1M7.5 13c3-1 6.5-1 9 .5M8 16c2-.7 4.5-.7 6.5.5"/></svg></a>
+          </div>
+        </div>
+        {cols.map((c) => (
+          <div key={c.title} className="sto-footer-col">
+            <div className="sto-footer-col-title">{c.title}</div>
+            <ul>
+              {c.links.map((l) => <li key={l}><a href="#">{l}</a></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div className="sto-footer-bt">
+        <BetterTogether variant="wave" tone="white" height={64} />
+      </div>
+      <div className="sto-footer-bottom">
+        <span>© 2026 stoble coffee co.</span>
+        <span>lovingly roasted in chico, california.</span>
+        <span><a href="#">privacy</a>  ·  <a href="#">terms</a>  ·  <a href="#">accessibility</a></span>
+      </div>
+    </footer>
+  );
+}
+
+// ───────────── CartDrawer.jsx ─────────────
+// Drawer cart - opens from right, shows added items
+function CartDrawer({ open, items, onClose, onInc, onDec, onRemove }) {
+  const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+  return (
+    <>
+      <div className={`sto-cart-scrim ${open ? "is-open" : ""}`} onClick={onClose} />
+      <aside className={`sto-cart ${open ? "is-open" : ""}`} aria-hidden={!open}>
+        <header className="sto-cart-head">
+          <h3 className="sto-cart-title">your bag</h3>
+          <button className="sto-icon-btn" aria-label="close" onClick={onClose}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
+        </header>
+        <div className="sto-cart-body">
+          {items.length === 0 && (
+            <div className="sto-cart-empty">
+              <div className="sto-cart-empty-art">
+                <Symbol tone="navy" size={48} />
+              </div>
+              <p>your bag is empty.</p>
+              <p className="sto-cart-empty-sub">go pick out something good →</p>
+            </div>
+          )}
+          {items.map((it) => (
+            <div className="sto-cart-row" key={it.id}>
+              <div className="sto-cart-thumb"><CoffeeBag roast={it.id} name={it.name + "."} sub={it.kind} size="xs" /></div>
+              <div className="sto-cart-info">
+                <div className="sto-cart-name">{it.name}</div>
+                <div className="sto-cart-kind">{it.kind}</div>
+                <div className="sto-cart-qty">
+                  <button onClick={() => onDec(it.id)}>−</button>
+                  <span>{it.qty}</span>
+                  <button onClick={() => onInc(it.id)}>+</button>
+                  <button className="sto-cart-remove" onClick={() => onRemove(it.id)}>remove</button>
+                </div>
+              </div>
+              <div className="sto-cart-price">${it.price * it.qty}</div>
+            </div>
+          ))}
+        </div>
+        {items.length > 0 && (
+          <footer className="sto-cart-foot">
+            <div className="sto-cart-totals">
+              <div><span>subtotal</span><span>${subtotal}</span></div>
+              <div className="sto-cart-fine">shipping &amp; taxes calculated at checkout.</div>
+            </div>
+            <Button variant="primary" size="lg" arrow>checkout</Button>
+            <button className="sto-cart-keep" onClick={onClose}>keep shopping</button>
+          </footer>
+        )}
+      </aside>
+    </>
+  );
+}
+
+
+
+// ───────────── App ─────────────
+function App() {
+  const [cartOpen, setCartOpen] = useState(false);
+  const [items, setItems] = useState([]);
+  const [current, setCurrent] = useState("home");
+
+  function onAdd(roast) {
+    setItems(function(prev) {
+      var idx = -1;
+      for (var k = 0; k < prev.length; k++) { if (prev[k].id === roast.id) { idx = k; break; } }
+      if (idx >= 0) {
+        var copy = prev.slice();
+        copy[idx] = Object.assign({}, copy[idx], { qty: copy[idx].qty + 1 });
+        return copy;
+      }
+      return prev.concat([{ id: roast.id, name: roast.name, kind: roast.kind, price: roast.price, qty: 1 }]);
+    });
+    setCartOpen(true);
+  }
+  function inc(id) { setItems(function(p){ return p.map(function(i){ return i.id === id ? Object.assign({}, i, { qty: i.qty + 1 }) : i; }); }); }
+  function dec(id) { setItems(function(p){ return p.map(function(i){ return i.id === id ? Object.assign({}, i, { qty: Math.max(1, i.qty - 1) }) : i; }); }); }
+  function rm(id)  { setItems(function(p){ return p.filter(function(i){ return i.id !== id; }); }); }
+
+  var totalQty = 0;
+  for (var k = 0; k < items.length; k++) totalQty += items[k].qty;
+
+  return (
+    <div>
+      <Header cartCount={totalQty} onCart={function(){ setCartOpen(true); }} current={current} onNav={setCurrent} />
+      <main>
+        <Hero onShop={function(){ var el = document.querySelector('.sto-roasts'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }} />
+        <RoastsGrid onAdd={onAdd} />
+        <StoryBlock />
+        <CafeBlock />
+        <SubscribeBand />
+      </main>
+      <Footer />
+      <CartDrawer open={cartOpen} items={items} onClose={function(){ setCartOpen(false); }} onInc={inc} onDec={dec} onRemove={rm} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+</script>
+</body>
+</html>

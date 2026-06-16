@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Colors / Semantic" subtitle="Surface, text, border roles" viewport="700x250" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Semantic Colors</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); font-family:var(--font-sans); color:var(--fg); }
+  .wrap { padding:16px; display:grid; gap:10px; }
+  .row { display:grid; grid-template-columns: 120px 1fr 1fr 1fr 1fr; gap:8px; align-items:center; }
+  .label { font: 500 12px/1.1 var(--font-sans); color:var(--fg-subtle); text-transform:lowercase; }
+  .cell { display:flex; flex-direction:column; gap:2px; border-radius:6px; border:1px solid var(--border); overflow:hidden; }
+  .swatch { height:44px; display:flex; align-items:center; padding:0 10px; font: 500 12px/1 var(--font-sans); }
+  .name { padding:6px 8px; background:var(--bg-elevated); font: 400 11px/1.2 var(--font-mono); color:var(--fg-subtle); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <div class="label">surface</div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#05414F">bg</div><div class="name">#F4F1ED</div></div>
+      <div class="cell"><div class="swatch" style="background:#FBFAF7;color:#05414F">elevated</div><div class="name">#FBFAF7</div></div>
+      <div class="cell"><div class="swatch" style="background:#ECE7E0;color:#05414F">subtle</div><div class="name">#ECE7E0</div></div>
+      <div class="cell"><div class="swatch" style="background:#05414F;color:#F4F1ED">inverse</div><div class="name">#05414F</div></div>
+    </div>
+    <div class="row">
+      <div class="label">text</div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#05414F">fg</div><div class="name">#05414F</div></div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#4E6770">muted</div><div class="name">#4E6770</div></div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#7A8C92">subtle</div><div class="name">#7A8C92</div></div>
+      <div class="cell"><div class="swatch" style="background:#05414F;color:#F4F1ED">on-dark</div><div class="name">#F4F1ED</div></div>
+    </div>
+    <div class="row">
+      <div class="label">border</div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#05414F;border-bottom:2px solid #DCD6CE">hairline</div><div class="name">#DCD6CE</div></div>
+      <div class="cell"><div class="swatch" style="background:#05414F;color:#F4F1ED;border-bottom:2px solid #1F4F5A">on-dark</div><div class="name">#1F4F5A</div></div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#6E8A6A">positive</div><div class="name">#6E8A6A</div></div>
+      <div class="cell"><div class="swatch" style="background:#F4F1ED;color:#A56F5C">negative</div><div class="name">#A56F5C</div></div>
+    </div>
+  </div>
+</body>
+</html>

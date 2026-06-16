@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Brand / Logo Lockups" subtitle="Wordmark + symbol on light & navy" viewport="700x260" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Logo Lockups</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); color:var(--fg); }
+  .grid { display:grid; grid-template-columns: 2fr 1fr; gap:12px; padding:18px; }
+  .tile { border-radius: var(--r-md); overflow:hidden; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; padding:18px; }
+  .tile.dark { background: var(--sto-navy); border-color: transparent; }
+  .tile.light { background: var(--bg-elevated); }
+  .tile.mid { background: var(--sto-mid-gray); }
+  .tile img { max-height: 56px; width: auto; }
+  .tile.symbol img { max-height: 80px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="tile light"><img src="../assets/wordmark-navy.png" alt="wordmark navy"/></div>
+    <div class="tile dark symbol"><img src="../assets/symbol-s-white.png" alt="symbol white"/></div>
+    <div class="tile dark"><img src="../assets/wordmark-white.png" alt="wordmark white"/></div>
+    <div class="tile light symbol"><img src="../assets/symbol-s-navy.png" alt="symbol navy"/></div>
+  </div>
+</body>
+</html>

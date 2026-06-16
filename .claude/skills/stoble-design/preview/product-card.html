@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Components / Product Card" subtitle="Coffee bag with label" viewport="700x380" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Product Card</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); color:var(--fg); font-family:'Garnett'; }
+  .wrap { padding:18px; display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .card { background: var(--bg-elevated); border:1px solid var(--border); border-radius: 12px; overflow:hidden; display:flex; flex-direction:column; transition: transform 220ms; }
+
+  /* ───── product photo slot — designed to hold a real shopify bag image ───── */
+  .photo { aspect-ratio: 4/3.4; position:relative; overflow:hidden; }
+  .photo.flagship { background: linear-gradient(160deg, #DDE3E7 0%, #8096A3 55%, #5F7986 100%); }
+  .photo.africa { background: linear-gradient(160deg, #E8DEC8 0%, #B8A57A 55%, #998A66 100%); }
+  /* a faked "bag silhouette" so it reads as a real photo placeholder, not an illustration */
+  .photo::before {
+    content: ""; position: absolute; left: 50%; bottom: -8%;
+    width: 52%; height: 88%; transform: translateX(-50%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(0,0,0,0.18) 100%);
+    border-radius: 6% 6% 2% 2% / 4% 4% 1% 1%;
+    box-shadow:
+      inset 4px 0 12px rgba(0,0,0,0.18),
+      inset -4px 0 12px rgba(0,0,0,0.18),
+      0 18px 28px rgba(0,0,0,0.22);
+    filter: blur(0.4px);
+  }
+  /* the tin-tie top of the bag */
+  .photo::after {
+    content: ""; position: absolute; left: 50%; top: 6%;
+    width: 36%; height: 5%; transform: translateX(-50%);
+    background: #8B6F4E; border-radius: 2px; opacity: 0.85;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  /* the label on the bag — uses real brand color logic */
+  .label { position:absolute; left:50%; bottom:18%; transform:translateX(-50%); width: 38%; background: #FAF7F1; padding: 8px 6px 7px; border-radius: 1px; box-shadow: 0 1px 3px rgba(0,0,0,0.18); z-index:1; text-align:center; }
+  .label .roast { font: 600 7px/1 'Garnett'; letter-spacing:0.12em; text-transform:uppercase; }
+  .label .name { font: 400 11px/1 'P22 Mackinac'; color: var(--sto-navy); letter-spacing:-0.01em; margin-top:3px; }
+  .label .meta { font: 400 6px/1.3 'Garnett'; color: var(--sto-navy); opacity:0.65; margin-top:2px; text-transform:lowercase; }
+
+  /* product-photo placeholder corner ribbon */
+  .ribbon { position:absolute; top:10px; left:10px; background: rgba(5,65,79,0.85); color: var(--sto-light-gray); font: 600 8.5px/1 'Garnett'; padding: 4px 7px; border-radius: 3px; letter-spacing:0.08em; text-transform:uppercase; z-index:2; }
+
+  .body { padding: 14px 16px 16px; display:flex; flex-direction:column; gap:8px; }
+  .row { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+  .name { font: 400 20px/1.05 'P22 Mackinac'; color: var(--sto-navy); letter-spacing:-0.015em; text-transform:lowercase; }
+  .price { font: 500 16px/1 'P22 Mackinac'; color: var(--sto-navy); }
+  .sub { font: 400 11.5px/1.3 'Garnett'; color: var(--fg-subtle); text-transform:lowercase; letter-spacing:0.03em; }
+  .desc { font: 400 13px/1.4 'P22 Mackinac'; color: var(--fg-muted); margin: 2px 0 0; }
+  .foot { display:flex; gap:6px; align-items:center; margin-top:6px; }
+  .btn { font: 500 12px/1 'Garnett'; padding: 9px 14px; border-radius: 999px; background: var(--sto-navy); color: var(--sto-light-gray); border:0; text-transform:lowercase; cursor:pointer; }
+  .stars { font-size:11px; color: var(--fg-muted); margin-left:auto; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="photo flagship">
+        <div class="ribbon">photo slot</div>
+        <div class="label">
+          <div class="roast" style="color:#8096A3">flagship</div>
+          <div class="name">a daily ritual.</div>
+          <div class="meta">double-origin · washed</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="row"><div class="name">flagship</div><div class="price">$19</div></div>
+        <div class="sub">12 oz · whole bean</div>
+        <div class="desc">our everyday cup — balanced, bright, a little chocolatey.</div>
+        <div class="foot"><button class="btn">add to bag  →</button><span class="stars">★ 4.9 (612)</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="photo africa">
+        <div class="ribbon">photo slot</div>
+        <div class="label">
+          <div class="roast" style="color:#B8A57A">africa</div>
+          <div class="name">ethiopia, guji.</div>
+          <div class="meta">single-origin · natural</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="row"><div class="name">africa</div><div class="price">$22</div></div>
+        <div class="sub">12 oz · whole bean</div>
+        <div class="desc">jammy, floral, and a little wild — like a sunny morning.</div>
+        <div class="foot"><button class="btn">add to bag  →</button><span class="stars">★ 4.8 (284)</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

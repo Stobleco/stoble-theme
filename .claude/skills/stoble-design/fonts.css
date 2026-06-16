@@ -1,0 +1,149 @@
+/* ─────────────────────────────────────────────────────────────
+   Stoble Coffee — Webfont declarations
+   Two families: P22 Mackinac (serif, primary) + Garnett (sans, support)
+   Always set in lowercase across the brand.
+   ───────────────────────────────────────────────────────────── */
+
+/* P22 Mackinac — primary brand serif */
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-BookItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'P22 Mackinac';
+  src: url('fonts/P22Mackinac-ExtraBoldItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Garnett — supporting sans-serif */
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-SemiboldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garnett';
+  src: url('fonts/Garnett-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}

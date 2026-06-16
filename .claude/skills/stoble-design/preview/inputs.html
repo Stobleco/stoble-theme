@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Components / Form Inputs" subtitle="Text, error, checkbox" viewport="700x230" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Form Inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); color:var(--fg); font-family:'Garnett'; }
+  .wrap { padding:18px 22px; display:grid; grid-template-columns: 1fr 1fr; gap:14px 18px; }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .label { font: 500 12px/1 'Garnett'; color: var(--fg-muted); text-transform:lowercase; }
+  .input { font: 400 15px/1 'P22 Mackinac'; padding: 12px 14px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 8px; color: var(--fg); outline: none; }
+  .input::placeholder { color: var(--fg-subtle); font-style: italic; }
+  .input:focus { border-color: var(--sto-navy); box-shadow: 0 0 0 3px rgba(5,65,79,0.10); }
+  .input.error { border-color: var(--negative); }
+  .help { font: 400 11.5px/1.3 'Garnett'; color: var(--fg-subtle); }
+  .help.error { color: var(--negative); }
+  .check { display:flex; align-items:center; gap:10px; font: 400 14px/1 'P22 Mackinac'; color:var(--fg); }
+  .check input { accent-color: var(--sto-navy); width:18px; height:18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="field"><div class="label">name</div><input class="input" placeholder="how should we greet you?" value="margaret jean" /></div>
+    <div class="field"><div class="label">email</div><input class="input" placeholder="hello@stoblecoffee.com" /></div>
+    <div class="field"><div class="label">grind</div><input class="input" value="whole bean" /></div>
+    <div class="field"><div class="label">zip code</div><input class="input error" value="abcde" /><div class="help error">please use a 5-digit u.s. zip.</div></div>
+    <div class="field" style="grid-column: span 2;"><div class="check"><input type="checkbox" checked /> send me brewing tips, not too often.</div></div>
+  </div>
+</body>
+</html>

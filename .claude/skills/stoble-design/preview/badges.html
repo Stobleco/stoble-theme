@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Components / Badges & Tags" subtitle="Status + per-roast labels" viewport="700x200" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Badges &amp; Tags</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); color:var(--fg); font-family:'Garnett'; }
+  .wrap { padding:18px 22px; display:grid; gap:12px; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .label { font: 600 10.5px/1 'Garnett'; color:var(--fg-subtle); text-transform:uppercase; letter-spacing:0.08em; min-width:72px; }
+  .badge { display:inline-flex; align-items:center; gap:6px; padding: 6px 12px; border-radius: 999px; font: 500 12.5px/1 'Garnett'; text-transform:lowercase; }
+  .badge.solid { background: var(--sto-navy); color: var(--sto-light-gray); }
+  .badge.outline { background: transparent; color: var(--sto-navy); border:1px solid var(--sto-navy); }
+  .badge.subtle { background: rgba(5,65,79,0.08); color: var(--sto-navy); }
+  .roast { padding: 5px 10px; font-size: 11px; font-weight: 600; letter-spacing:0.04em; text-transform:uppercase; border-radius: 4px; }
+  .roast.flagship { background: #8096A3; color: #C9D0D2; }
+  .roast.dark { background: #556C72; color: #DDCBC3; }
+  .roast.decaf { background: #8BA099; color: #C0C8CB; }
+  .roast.africa { background: #B8A57A; color: #E4DED0; }
+  .roast.south { background: #A56F5C; color: #F7F0ED; }
+  .roast.central { background: #DEBBA8; color: #D5DCDA; }
+  .note { font: 400 14px/1 'P22 Mackinac'; color: var(--fg-muted); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row"><div class="label">status</div>
+      <span class="badge solid">in stock</span>
+      <span class="badge outline">new</span>
+      <span class="badge subtle">subscriber pick</span>
+    </div>
+    <div class="row"><div class="label">roast</div>
+      <span class="roast flagship">flagship</span>
+      <span class="roast dark">dark</span>
+      <span class="roast decaf">decaf</span>
+      <span class="roast africa">africa</span>
+      <span class="roast south">s. america</span>
+      <span class="roast central">c. america</span>
+    </div>
+    <div class="row"><div class="label">notes</div>
+      <span class="note">cherry  ·  floral  ·  grapefruit zest</span>
+    </div>
+  </div>
+</body>
+</html>

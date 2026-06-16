@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Spacing / Radius & Elevation" subtitle="Corner radii and shadows" viewport="700x280" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Radius &amp; Shadow</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); color:var(--fg); }
+  .wrap { padding:18px 22px; display:grid; gap:18px; }
+  .section { display:grid; gap:10px; }
+  .label { font: 600 11px/1 'Garnett'; color:var(--fg-subtle); text-transform:uppercase; letter-spacing:0.08em; }
+  .row { display:flex; gap:14px; align-items:flex-end; }
+  .swatch { background: var(--bg-elevated); border:1px solid var(--border); width:70px; height:60px; display:flex; align-items:flex-end; justify-content:center; padding-bottom:6px; }
+  .tag { font: 400 10.5px/1.1 var(--font-mono); color:var(--fg-subtle); }
+  .shdrow .swatch { border:0; background: #FBFAF7; }
+  .shdrow .s1 { box-shadow: var(--shadow-1); }
+  .shdrow .s2 { box-shadow: var(--shadow-2); }
+  .shdrow .s3 { box-shadow: var(--shadow-3); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="section">
+      <div class="label">corner radius</div>
+      <div class="row">
+        <div><div class="swatch" style="border-radius:2px"><span class="tag">xs · 2</span></div></div>
+        <div><div class="swatch" style="border-radius:4px"><span class="tag">sm · 4</span></div></div>
+        <div><div class="swatch" style="border-radius:8px"><span class="tag">md · 8</span></div></div>
+        <div><div class="swatch" style="border-radius:12px"><span class="tag">lg · 12</span></div></div>
+        <div><div class="swatch" style="border-radius:20px"><span class="tag">xl · 20</span></div></div>
+        <div><div class="swatch" style="border-radius:999px;width:110px"><span class="tag">pill</span></div></div>
+      </div>
+    </div>
+    <div class="section shdrow">
+      <div class="label">elevation</div>
+      <div class="row">
+        <div><div class="swatch s1" style="border-radius:8px"><span class="tag">1 · subtle</span></div></div>
+        <div><div class="swatch s2" style="border-radius:8px"><span class="tag">2 · card</span></div></div>
+        <div><div class="swatch s3" style="border-radius:8px"><span class="tag">3 · float</span></div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

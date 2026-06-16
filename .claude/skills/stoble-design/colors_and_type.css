@@ -1,0 +1,250 @@
+/* ─────────────────────────────────────────────────────────────
+   Stoble Coffee — Design Tokens
+   Colors, type, spacing, radius, shadow.
+   Source of truth for all UI surfaces.
+   ───────────────────────────────────────────────────────────── */
+
+@import url('fonts.css');
+
+:root {
+  /* ───── Primary palette (from official style guide) ───── */
+  --sto-navy: #05414f; /* PMS 2217 — the brand. Use everywhere. */
+  --sto-mid-gray: #97a3ae; /* PMS 7543 — supporting only, never lead. */
+  --sto-light-gray: #f4f1ed; /* Cream-leaning neutral. Replaces stark white. */
+  --sto-white: #ffffff;
+  --sto-black: #000000;
+
+  /* ───── Secondary palette — one color per roast ─────
+     90% of the time use these with their named roast. Merch + general use:
+     more flexibility. */
+  --roast-flagship: #8096a3; /* slate blue */
+  --roast-dark: #556c72; /* deep teal-gray */
+  --roast-decaf: #8ba099; /* dusty sage */
+  --roast-africa: #b8a57a; /* sun-baked tan */
+  --roast-south-america: #a56f5c; /* warm terracotta */
+  --roast-central-america: #debba8; /* pale clay */
+
+  /* ───── Roast text tints (text on the flood color of the same roast) ───── */
+  --roast-flagship-text: #c0c8cb; /* 30% tint — light slate */
+  --roast-dark-text: #c9d0d2; /* 35% tint — light cool gray */
+  --roast-decaf-text: #d5dcda; /* 35% tint — light cool sage */
+  --roast-africa-text: #e4ded0; /* 30% tint — light warm cream */
+  --roast-south-america-text: #ddcbc3; /* 35% tint — light peach */
+  --roast-central-america-text: #f7f0ed; /* 20% tint — very pale cream */
+
+  /* ───── Semantic surface roles ───── */
+  --bg: var(--sto-light-gray); /* default page bg — warm, not stark */
+  --bg-elevated: #fbfaf7; /* card / panel surface */
+  --bg-inverse: var(--sto-navy); /* dark surfaces */
+  --bg-subtle: #ece7e0; /* secondary surface, dividers */
+  --surface-tint: rgba(5, 65, 79, 0.04); /* navy-washed surfaces */
+
+  /* ───── Semantic text roles ───── */
+  --fg: var(--sto-navy); /* primary text — always navy */
+  --fg-muted: #4e6770; /* slightly lightened navy */
+  --fg-subtle: #7a8c92; /* tertiary text, captions */
+  --fg-on-dark: var(--sto-light-gray); /* text on navy surfaces */
+  --fg-on-dark-muted: #b6c2c6;
+  --fg-inverse: var(--sto-light-gray);
+
+  /* ───── Borders & dividers ───── */
+  --border: #dcd6ce; /* hairline against light bg */
+  --border-strong: #1f4f5a; /* against navy bg */
+  --border-on-dark: rgba(244, 241, 237, 0.18);
+
+  /* ───── Status / utility (kept brand-aligned, not invented) ───── */
+  --positive: #6e8a6a; /* muted moss */
+  --warning: #b8a57a; /* africa tan */
+  --negative: #a56f5c; /* south america terracotta */
+
+  /* ───── Typography families ───── */
+  --font-serif: 'P22 Mackinac', 'Cormorant Garamond', 'Iowan Old Style', Georgia,
+    serif;
+  --font-sans: 'Garnett', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Roles
+     • Headlines, long-form, conversational body → serif (lowercase)
+     • Subheads, short-form, furniture → sans (lowercase)
+     • Garnett ≈ 90% of Mackinac size when paired inline */
+  --font-display: var(--font-serif);
+  --font-heading: var(--font-serif);
+  --font-body: var(--font-serif);
+  --font-ui: var(--font-sans);
+  --font-caption: var(--font-sans);
+
+  /* ───── Type scale (modest steps; the brand favors honest sizes) ───── */
+  --t-display: 72px;
+  --t-h1: 56px;
+  --t-h2: 40px;
+  --t-h3: 30px; /* per style guide headline example */
+  --t-h4: 22px;
+  --t-body-lg: 18px;
+  --t-body: 16px; /* per style guide body example */
+  --t-body-sm: 14.75px; /* per style guide subhead/furniture */
+  --t-caption: 12px;
+  --t-eyebrow: 12px;
+
+  /* Leading — guide explicitly calls for ~1.25, never 1.5+ */
+  --lh-display: 1.05; /* @kind other */
+  --lh-heading: 1.13; /* @kind other */ /* 30/34 in guide */
+  --lh-body: 1.25; /* @kind other */ /* 16/20 in guide */
+  --lh-ui: 1.22; /* @kind other */ /* 14.75/18 in guide */
+
+  /* Tracking — Mackinac headlines use tight tracking (-15 = -0.015em) */
+  --tk-display: -0.02em; /* @kind spacing */
+  --tk-heading: -0.015em; /* @kind spacing */
+  --tk-body: 0; /* @kind spacing */
+  --tk-ui: 0; /* @kind spacing */
+  --tk-caps: 0.06em; /* @kind spacing */
+
+  /* ───── Spacing scale (4-px grid) ───── */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 80px;
+  --space-11: 120px;
+
+  /* ───── Radius — gentle, not pillowy ───── */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 20px;
+  --r-pill: 999px;
+
+  /* ───── Shadow — minimal; brand leans on color + space, not depth ───── */
+  --shadow-1: 0 1px 2px rgba(5, 65, 79, 0.06);
+  --shadow-2: 0 4px 12px rgba(5, 65, 79, 0.08);
+  --shadow-3: 0 12px 32px rgba(5, 65, 79, 0.1);
+
+  /* ───── Motion ───── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --ease-in: cubic-bezier(0.55, 0, 0.45, 1); /* @kind other */
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --dur-fast: 140ms; /* @kind other */
+  --dur-base: 220ms; /* @kind other */
+  --dur-slow: 360ms; /* @kind other */
+
+  /* ───── Container widths ───── */
+  --container-sm: 640px;
+  --container-md: 960px;
+  --container-lg: 1200px;
+  --container-xl: 1440px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Semantic typography classes
+   Use these instead of raw element styling whenever possible.
+   All defaults are LOWERCASE per brand voice.
+   ───────────────────────────────────────────────────────────── */
+
+.t-display,
+.t-h1,
+.t-h2,
+.t-h3,
+.t-h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--fg);
+  text-transform: lowercase;
+  margin: 0;
+}
+.t-display {
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tk-display);
+}
+.t-h1 {
+  font-size: var(--t-h1);
+  line-height: 1.06;
+  letter-spacing: var(--tk-display);
+}
+.t-h2 {
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: var(--tk-heading);
+}
+.t-h3 {
+  font-size: var(--t-h3);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tk-heading);
+}
+.t-h4 {
+  font-size: var(--t-h4);
+  line-height: 1.2;
+  letter-spacing: var(--tk-heading);
+}
+
+.t-body {
+  font-family: var(--font-serif);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  text-transform: lowercase; /* may relax to sentence-case for long-form per guide */
+}
+.t-body-lg {
+  font: 400 var(--t-body-lg) / 1.35 var(--font-serif);
+  color: var(--fg);
+  text-transform: lowercase;
+}
+
+.t-subhead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-ui);
+  color: var(--fg);
+  text-transform: lowercase;
+}
+.t-ui {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--t-body-sm);
+  line-height: var(--lh-ui);
+  color: var(--fg);
+  text-transform: lowercase;
+}
+.t-caption {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--t-caption);
+  line-height: 1.3;
+  color: var(--fg-subtle);
+  text-transform: lowercase;
+}
+.t-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--t-eyebrow);
+  line-height: 1.2;
+  color: var(--fg-muted);
+  letter-spacing: var(--tk-caps);
+  text-transform: uppercase; /* the one place we go uppercase */
+}
+
+/* ───── Garnett-nested-in-Mackinac inline pairing
+   Guide rule: Garnett ≈ 90% of Mackinac to match x-heights. */
+.t-body .t-inline-ui,
+.t-body-lg .t-inline-ui {
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+/* ───── Brand arrow utility (Garnett glyphs) ───── */
+.arrow::before {
+  content: '→';
+  font-family: var(--font-sans);
+  margin: 0 0.5em 0 0; /* guide says add a space on each side */
+}
+.arrow::after {
+  content: '';
+}

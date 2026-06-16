@@ -9,3 +9,8 @@
 ehthumbs.db
 Thumbs.db
 node_modules
+
+# Stoble additions
+.shopify/
+.env
+*.env

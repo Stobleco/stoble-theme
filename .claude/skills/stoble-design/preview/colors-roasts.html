@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Colors / Roast Palette" subtitle="Six roast colors with text tints" viewport="700x270" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Stoble — Roast Colors</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin:0; background:var(--bg); font-family:var(--font-sans); color:var(--fg); }
+  .grid { display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; padding:18px; }
+  .sw { border-radius: var(--r-md); overflow:hidden; border:1px solid var(--border); display:flex; flex-direction:column; height:220px; }
+  .chip { flex:1; position:relative; display:flex; align-items:flex-end; padding:10px; }
+  .chip span { font: 400 11px/1.2 var(--font-sans); }
+  .meta { padding:8px 10px; background:var(--bg-elevated); }
+  .name { font: 500 12px/1.1 var(--font-sans); color:var(--fg); text-transform:lowercase; }
+  .hex { font: 400 10.5px/1.2 var(--font-mono); color:var(--fg-subtle); margin-top:2px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background:#8096A3"><span style="color:#C0C8CB">tint 30%</span></div><div class="meta"><div class="name">flagship</div><div class="hex">#8096A3</div></div></div>
+    <div class="sw"><div class="chip" style="background:#556C72"><span style="color:#C9D0D2">tint 35%</span></div><div class="meta"><div class="name">dark</div><div class="hex">#556C72</div></div></div>
+    <div class="sw"><div class="chip" style="background:#8BA099"><span style="color:#D5DCDA">tint 35%</span></div><div class="meta"><div class="name">decaf</div><div class="hex">#8BA099</div></div></div>
+    <div class="sw"><div class="chip" style="background:#B8A57A"><span style="color:#E4DED0">tint 30%</span></div><div class="meta"><div class="name">africa</div><div class="hex">#B8A57A</div></div></div>
+    <div class="sw"><div class="chip" style="background:#A56F5C"><span style="color:#DDCBC3">tint 35%</span></div><div class="meta"><div class="name">south america</div><div class="hex">#A56F5C</div></div></div>
+    <div class="sw"><div class="chip" style="background:#DEBBA8"><span style="color:#F7F0ED">tint 20%</span></div><div class="meta"><div class="name">central america</div><div class="hex">#DEBBA8</div></div></div>
+  </div>
+</body>
+</html>
