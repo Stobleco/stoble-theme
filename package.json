@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "css": "tailwindcss -i assets/app-tailwind.css -o assets/app.css",
+    "css:watch": "tailwindcss -i assets/app-tailwind.css -o assets/app.css --watch",
+    "theme": "shopify theme dev --store stoble-coffee-roasters.myshopify.com",
+    "dev": "concurrently -k -n css,theme -c cyan,green \"npm:css:watch\" \"npm:theme\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,7 @@
   "homepage": "https://github.com/TrellisCommerce/shopify-dawn-tailwind-starter-base#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.4",
+    "concurrently": "^9.2.1",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.3",
     "postcss": "^8.4.12",
